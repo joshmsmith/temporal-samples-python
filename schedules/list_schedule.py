@@ -6,6 +6,7 @@ from temporalio.client import Client
 async def main() -> None:
     client = await Client.connect("localhost:7233")
 
+    client.list_schedules()
     async for schedule in await client.list_schedules():
         print(f"List Schedule Info: {schedule.info}.")
 
