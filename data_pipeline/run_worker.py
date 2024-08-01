@@ -2,8 +2,8 @@ import asyncio
 
 from temporalio.client import Client
 from temporalio.worker import Worker
-from activities import your_activity, extract, validate, transform, load, poll
-from data_pipeline.data_pipeline_workflows import YourSchedulesWorkflow, DataPipelineWorkflow
+from activities import extract, validate, transform, load, poll
+from data_pipeline.data_pipeline_workflows import DataPipelineWorkflow
 
 
 async def main():
@@ -11,8 +11,8 @@ async def main():
     worker = Worker(
         client,
         task_queue="data-pipeline-task-queue",
-        workflows=[YourSchedulesWorkflow, DataPipelineWorkflow], 
-        activities=[your_activity, extract, validate, transform, load, poll],
+        workflows=[DataPipelineWorkflow], 
+        activities=[extract, validate, transform, load, poll],
     )
     await worker.run()
 

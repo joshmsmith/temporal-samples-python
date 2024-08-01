@@ -10,10 +10,6 @@ from data_pipeline.dataobjects import YourParams, DataPipelineParams
 
 
 @activity.defn
-async def your_activity(input: YourParams) -> str:
-    return f"{input.greeting}, {input.name}!"
-
-@activity.defn
 async def validate(input: DataPipelineParams) -> bool:
     if(input.validation == "blue"):
         return False

@@ -18,7 +18,7 @@ async def main():
     client = await Client.connect("localhost:7233")
     datapipelineinput = DataPipelineParams(input_filename="info.json", 
                                            foldername="./demodata",
-                                           poll_or_wait="poll",
+                                           poll_or_wait="wait",
                                            validation="orange")
     result = await client.execute_workflow(
         DataPipelineWorkflow.run, datapipelineinput, id=f"datapipe-workflow", task_queue="data-pipeline-task-queue"

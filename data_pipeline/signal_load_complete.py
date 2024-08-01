@@ -16,15 +16,14 @@ from data_pipeline.dataobjects import DataPipelineParams
 
 async def main():
     client = await Client.connect("localhost:7233")
-    datapipelineinput = DataPipelineParams(input_filename="info.json", 
-                                           foldername="./demodata",
-                                           poll_or_wait="poll",
-                                           validation="orange")
-    result = await client.execute_workflow(
-        DataPipelineWorkflow.run, datapipelineinput, id=f"datapipe-workflow", task_queue="data-pipeline-task-queue"
-    )  
 
+    handle = client.get_workflow_handle(workflow_id="datapipe-workflow")
+
+    await handle.signal(DataPipelineWorkflow.load_complete, "complete")
+    # Wait and return result
+    result = await handle.result()
     print(f"Result: {result}")
+    return result
 
 if __name__ == "__main__":
     asyncio.run(main())
